@@ -1,0 +1,15 @@
+# ECMPENE — redirections serveur (LiteSpeed Hostinger), avant tout chargement de page.
+# Type MIME absent de la configuration du serveur : sans lui, les AVIF partent en text/plain.
+AddType image/avif .avif
+AddType application/manifest+json .webmanifest
+
+RewriteEngine On
+
+# www.ecmpene.com → ecmpene.com (la racine va directement à /fr/, en une seule redirection)
+RewriteCond %{HTTP_HOST} ^www\.ecmpene\.com$ [NC]
+RewriteRule ^$ https://ecmpene.com/fr/ [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.ecmpene\.com$ [NC]
+RewriteRule ^(.*)$ https://ecmpene.com/$1 [R=301,L]
+
+# Racine du site → accueil français, sans page intermédiaire.
+RewriteRule ^$ /fr/ [R=301,L]
